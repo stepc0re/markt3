@@ -91,12 +91,48 @@
   <widget class="QWidget" name="widget" native="true">
    <property name="geometry">
     <rect>
-     <x>9</x>
-     <y>130</y>
+     <x>10</x>
+     <y>140</y>
      <width>381</width>
      <height>161</height>
     </rect>
    </property>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>50</y>
+      <width>69</width>
+      <height>22</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QCommandLinkButton" name="commandLinkButton">
+    <property name="geometry">
+     <rect>
+      <x>210</x>
+      <y>30</y>
+      <width>121</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>PushButton</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox">
+    <property name="geometry">
+     <rect>
+      <x>170</x>
+      <y>100</y>
+      <width>70</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>CheckBox</string>
+    </property>
+   </widget>
   </widget>
  </widget>
  <resources/>

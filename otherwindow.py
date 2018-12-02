@@ -7,6 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 from PyQt4 import QtCore, QtGui
+from widget_test import MyApp
 from new_frame_weiter import Ui_BoaWista
 from weiter import Ui_Frame
 
@@ -41,7 +42,7 @@ class Ui_otherwindow(object):
         self.neue_kunde = QtGui.QToolButton(self.centralwidget)
         self.neue_kunde.setGeometry(QtCore.QRect(30, 250, 191, 41))
         self.neue_kunde.setStyleSheet(_fromUtf8("font: 11pt \"MS Shell Dlg 2\";"))
-        self.neue_kunde.setObjectName(_fromUtf8("Rechnung"))
+        self.neue_kunde.setObjectName(_fromUtf8("neue_kunde"))
         self.Statictik = QtGui.QPushButton(self.centralwidget)
         self.Statictik.setGeometry(QtCore.QRect(30, 310, 191, 41))
         self.Statictik.setStyleSheet(_fromUtf8("font: 11pt \"MS Shell Dlg 2\";"))
@@ -50,14 +51,14 @@ class Ui_otherwindow(object):
         # self.Black_list.setGeometry(QtCore.QRect(30, 370, 191, 41))
         # self.Black_list.setStyleSheet(_fromUtf8("font: 11pt \"MS Shell Dlg 2\";"))
         # self.Black_list.setObjectName(_fromUtf8("Black_list"))
-        self.neuen_Markt = QtGui.QPushButton(self.centralwidget)
-        self.neuen_Markt.setGeometry(QtCore.QRect(30, 130, 191, 41))
-        self.neuen_Markt.setStyleSheet(_fromUtf8("font: 11pt \"MS Shell Dlg 2\";"))
-        self.neuen_Markt.setObjectName(_fromUtf8("neuen_Markt"))
+        # self.neuen_Markt = QtGui.QPushButton(self.centralwidget)
+        # self.neuen_Markt.setGeometry(QtCore.QRect(30, 130, 191, 41))
+        # self.neuen_Markt.setStyleSheet(_fromUtf8("font: 11pt \"MS Shell Dlg 2\";"))
+        # self.neuen_Markt.setObjectName(_fromUtf8("neuen_Markt"))
         self.label_2 = QtGui.QLabel(self.centralwidget)
         self.label_2.setGeometry(QtCore.QRect(250, 70, 511, 481))
         self.label_2.setText(_fromUtf8(""))
-        self.label_2.setPixmap(QtGui.QPixmap(_fromUtf8("../../Desktop/Street_Food.jpg")))
+        self.label_2.setPixmap(QtGui.QPixmap(_fromUtf8(r"C:\Users\Steph\Desktop\BoaVista/Street_Food.jpg")))
         self.label_2.setObjectName(_fromUtf8("label_2"))
         otherwindow.setCentralWidget(self.centralwidget)
         self.menubar = QtGui.QMenuBar(otherwindow)
@@ -77,13 +78,23 @@ class Ui_otherwindow(object):
         self.retranslateUi(otherwindow)
         QtCore.QObject.connect(self.DB_Edit, QtCore.SIGNAL(_fromUtf8("clicked()")), self.open_new_frame_weiter)
         QtCore.QObject.connect(self.DB_Edit, QtCore.SIGNAL(_fromUtf8("clicked()")), otherwindow.close)
+        QtCore.QObject.connect(self.neue_kunde, QtCore.SIGNAL(_fromUtf8("clicked()")), self.weiter)
+        QtCore.QObject.connect(self.neue_kunde, QtCore.SIGNAL(_fromUtf8("clicked()")), otherwindow.close)
         QtCore.QMetaObject.connectSlotsByName(otherwindow)
 
-    def open_new_frame_weiter(self):
+
+    def weiter(self):
+
         self.window = QtGui.QFrame()
         self.ui = Ui_BoaWista()
         self.ui.setupUi(self.window)
         self.window.show()
+
+    def open_new_frame_weiter(self):
+        self.window = QtGui.QWidget()
+        self.window = MyApp()
+        self.window.show()
+
 
     def retranslateUi(self, otherwindow):
         otherwindow.setWindowTitle(_translate("otherwindow", "MainWindow", None))
