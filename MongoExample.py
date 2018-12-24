@@ -4,10 +4,11 @@ import urllib.parse
 
 username = urllib.parse.quote_plus('user1')
 password = urllib.parse.quote_plus('BoaVista1')
-
+host = urllib.parse.quote_plus('CentOS')
+port = urllib.parse.quote_plus('27017')
 
 client = MongoClient()
-client = MongoClient('mongodb://%s:%s@centos:27017/test' % (username, password))
+client = MongoClient('mongodb://%s:%s@%s:%s/' % (username, password, host, port))
 
 db = client['test']
 collection = db.test_collection
