@@ -24,40 +24,65 @@ except AttributeError:
     def _translate(context, text, disambig):
         return QtGui.QApplication.translate(context, text, disambig)
 
-class Ui_BoaVista(object):
-    def setupUi(self, BoaVista):
-        BoaVista.setObjectName(_fromUtf8("BoaVista"))
-        BoaVista.resize(676, 612)
+
+from PyQt4 import QtGui, QtCore
+from PyQt4.QtGui import *
+import os
+import json
 
 
+class App(QMainWindow):
 
+    def __init__(self):
+        super().__init__()
+        self.title = 'BoaVista'
+        self.left = 0
+        self.top = 0
+        self.width = 676
+        self.height = 612
+        self.resize(900, 880)
+        self.setWindowTitle(self.title)
+        self.table_widget = MyTableWidget(self)
+        self.setCentralWidget(self.table_widget)
+        self.show()
+
+    def resizeEvent(self, event):
+
+        QtGui.QMainWindow.resizeEvent(self, event)
+
+class MyTableWidget(QWidget):
+
+    def __init__(self, parent):
+
+        super(QWidget, self).__init__(parent)
+
+        self.BoaVista = QtGui.QTabWidget()
+
+        self.layout = QHBoxLayout(self)
         self.DB_Edit = QtGui.QWidget()
 
         self.DB_Edit.setObjectName(_fromUtf8("DB_Edit"))
         self.groupBox = QtGui.QGroupBox(self.DB_Edit)
-        #self.groupBox.adjustSize()
+
         self.groupBox.setGeometry(QtCore.QRect(10, 140, 381, 430))
         self.groupBox.setTitle(_fromUtf8(""))
         self.groupBox.setObjectName(_fromUtf8("groupBox"))
 
-
         self.tableWidget = QtGui.QTableWidget(self.groupBox)
-
         self.tableWidget.setGeometry(QtCore.QRect(10, 10, 361, 401))
         self.tableWidget.setObjectName(_fromUtf8("tableWidget"))
         self.tableWidget.setColumnCount(2)
-
         self.tableWidget.setHorizontalHeaderLabels(('Firma Name', 'Kntakt Person'))
 
-
         self.groupBox_2 = QtGui.QGroupBox(self.DB_Edit)
-        self.groupBox_2.setGeometry(QtCore.QRect(10, 100, 641, 40))
+        self.groupBox_2.setGeometry(QtCore.QRect(10, 100, 900, 40))
         self.groupBox_2.setTitle(_fromUtf8(""))
         self.groupBox_2.setObjectName(_fromUtf8("groupBox_2"))
+
         #self.groupBox_2.setSizeIncrement(200, 200)
 
         self.txt_search = QtGui.QLineEdit(self.groupBox_2)
-       # self.txt_search.adjustSize()
+
         self.txt_search.setGeometry(QtCore.QRect(239, 8, 311, 24))
         self.txt_search.setObjectName(_fromUtf8("txt_search"))
         self.suche_lbl = QtGui.QLabel(self.groupBox_2)
@@ -105,7 +130,7 @@ class Ui_BoaVista(object):
         self.Update = QtGui.QPushButton(self.DB_Edit)
         self.Update.setGeometry(QtCore.QRect(450, 30, 191, 24))
         self.Update.setObjectName(_fromUtf8("Update"))
-        BoaVista.addTab(self.DB_Edit, _fromUtf8(""))
+        self.BoaVista.addTab(self.DB_Edit, _fromUtf8(""))
         self.Neue_Kunde = QtGui.QWidget()
         self.Neue_Kunde.setObjectName(_fromUtf8("Neue_Kunde"))
         self.dockWidget = QtGui.QDockWidget(self.Neue_Kunde)
@@ -117,17 +142,17 @@ class Ui_BoaVista(object):
         self.Test_tab2 = QtGui.QLabel(self.Neue_Kunde)
         self.Test_tab2.setGeometry(QtCore.QRect(190, 240, 71, 16))
         self.Test_tab2.setObjectName(_fromUtf8("Test_tab2"))
-        BoaVista.addTab(self.Neue_Kunde, _fromUtf8(""))
+        self.BoaVista.addTab(self.Neue_Kunde, _fromUtf8(""))
         self.Statistik = QtGui.QWidget()
         self.Statistik.setObjectName(_fromUtf8("Statistik"))
-        BoaVista.addTab(self.Statistik, _fromUtf8(""))
+        self.BoaVista.addTab(self.Statistik, _fromUtf8(""))
         self.neuer_Markt = QtGui.QWidget()
         self.neuer_Markt.setObjectName(_fromUtf8("neuer_Markt"))
-        BoaVista.addTab(self.neuer_Markt, _fromUtf8(""))
+        self.BoaVista.addTab(self.neuer_Markt, _fromUtf8(""))
 
-        self.retranslateUi(BoaVista)
-        BoaVista.setCurrentIndex(0)
-        QtCore.QMetaObject.connectSlotsByName(BoaVista)
+        self.retranslateUi(self.BoaVista)
+        self.BoaVista.setCurrentIndex(0)
+        QtCore.QMetaObject.connectSlotsByName(self.BoaVista)
 
 
         data, firma = self.load_data()
@@ -161,7 +186,7 @@ class Ui_BoaVista(object):
             return self.data, self.Firma
 
     def retranslateUi(self, BoaVista):
-        BoaVista.setWindowTitle(_translate("BoaVista", "Boa Vista", None))
+        self.BoaVista.setWindowTitle(_translate("BoaVista", "Boa Vista", None))
         self.suche_lbl.setText(_translate("BoaVista", "Suche nach FirmenName or KontaktPerson", None))
         self.Search_btn.setText(_translate("BoaVista", "Suchen", None))
         self.Edit_Daten.setText(_translate("BoaVista", "Edit", None))
@@ -176,19 +201,18 @@ class Ui_BoaVista(object):
         self.Markte.setItemText(1, _translate("BoaVista", "Memmingen Markt", None))
         self.Markt_Auswahl.setText(_translate("BoaVista", "Markt auswählen", None))
         self.Update.setText(_translate("BoaVista", "DB_Update", None))
-        BoaVista.setTabText(BoaVista.indexOf(self.DB_Edit), _translate("BoaVista", "DB_bearbeiten", None))
+        self.BoaVista.setTabText(self.BoaVista.indexOf(self.DB_Edit), _translate("BoaVista", "DB_bearbeiten", None))
         self.Test_tab2.setText(_translate("BoaVista", "Lable", None))
-        BoaVista.setTabText(BoaVista.indexOf(self.Neue_Kunde), _translate("BoaVista", "Neun Kunde anlegen", None))
-        BoaVista.setTabText(BoaVista.indexOf(self.Statistik), _translate("BoaVista", "Statistische Analyse", None))
-        BoaVista.setTabText(BoaVista.indexOf(self.neuer_Markt), _translate("BoaVista", "Neuen Markt anlegen", None))
+        self.BoaVista.setTabText(self.BoaVista.indexOf(self.Neue_Kunde), _translate("BoaVista", "Neun Kunde anlegen", None))
+        self.BoaVista.setTabText(self.BoaVista.indexOf(self.Statistik), _translate("BoaVista", "Statistische Analyse", None))
+        self.BoaVista.setTabText(self.BoaVista.indexOf(self.neuer_Markt), _translate("BoaVista", "Neuen Markt anlegen", None))
+        self.layout.addWidget(self.BoaVista)
+        self.setLayout(self.layout)
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     import sys
-    app = QtGui.QApplication(sys.argv)
-    BoaVista = QtGui.QTabWidget()
-    ui = Ui_BoaVista()
-    ui.setupUi(BoaVista)
-    BoaVista.show()
+    app = QApplication(sys.argv)
+    ex = App()
     sys.exit(app.exec_())
 

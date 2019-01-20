@@ -23,7 +23,6 @@ class MyApp(QWidget):
         window_height = 600
         self.resize(window_width, window_height)
 
-
         self.initUI()
 
     def load_data(self):
