@@ -21,7 +21,8 @@ def get_overlay_canvas() -> io.BytesIO:
     data = io.BytesIO()
     pdf = canvas.Canvas(data)
     pdf.drawString(x=163, y=12, text=str(date))
-    pdf.drawString(x=163, y=1, text='John')
+    pdf.drawString(x=163, y=500, text='Johnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn')
+    pdf.
     pdf.save()
     data.seek(0)
 
