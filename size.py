@@ -10,6 +10,8 @@ from new_frame_weiter import Ui_BoaWista
 import os
 import json
 
+import StephansMongoFunctions
+
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -365,7 +367,7 @@ class MyTableWidget(QtGui.QWidget):
         self.lbl_search = QtGui.QLabel("search FirmenName: ")
         self.lbl_search.setStyleSheet("font: 13px;")
 
-        kunden_nummer, data, firma = self.load_data()
+        kunden_nummer, data, firma = self.load_data_from_mongodb()
 
         self.test_search = QtGui.QLineEdit()
         self.completer = QtGui.QCompleter(firma)
@@ -606,7 +608,7 @@ class MyTableWidget(QtGui.QWidget):
     def cell_was_clicked(self, row, col):
 
         person = (self.tableWidget.item(row, col + 1)).text()
-        data_file = os.path.join("C:\\Users\\Steph\\Desktop\\BoaVista\\json_file.json")
+        data_file = os.path.join("C:\\Users\\Stephan\\Google Drive\\BoaVista\\json_file.json")
         # self.window = QtGui.QFrame()
         # self.ui = Ui_BoaWista()
         # self.ui.setupUi(self.window)
@@ -647,7 +649,7 @@ class MyTableWidget(QtGui.QWidget):
             selected_row_text = currentQTableWidgetItem.text()
 
         self.Weiter_btn.clicked.connect(self.next_page_edit)
-        data_file = os.path.join("C:\\Users\\Steph\\Desktop\\BoaVista\\json_file.json")
+        data_file = os.path.join("C:\\Users\\Stephan\\Google Drive\\BoaVista\\json_file.json")
         with open(data_file, 'r') as f:
             d = json.load(f)
         self.tabs.insertTab(1, self.tab2, "Edit")
@@ -673,7 +675,7 @@ class MyTableWidget(QtGui.QWidget):
                     if d[i]["lngH\u00e4ndlergruppe"] == id:
                         self.Haendlerkategorie_CB.setCurrentIndex(id)
 
-    def load_data(self):
+    def load_data_from_file(self):
         self.data = []
         self.Firma = []
         self.id = []
@@ -681,10 +683,11 @@ class MyTableWidget(QtGui.QWidget):
         # Extract the directory of this file...
         base_dir = os.path.dirname(os.path.realpath(__file__))
         # Concatenate the directory with the file name...
-        data_file = os.path.join(base_dir, "C:\\Users\\Steph\\Desktop\\BoaVista\\json_file.json")
+        data_file = os.path.join(base_dir, "C:\\Users\\Stephan\\Google Drive\\BoaVista\\json_file.json")
         # Open the file so we can read the data...
         with open(data_file, 'r') as f:
             # For each line in the file...
+            print(f)
             d = json.load(f)
             for i, entry in enumerate(d):
                 # Append to the list of data...
@@ -693,6 +696,22 @@ class MyTableWidget(QtGui.QWidget):
                 self.Firma.append(entry['txtFirmenname'])
                 self.id.append(entry['IDKundennummer'])
             return self.id, self.data, self.Firma
+
+    def load_data_from_mongodb(self):
+        self.data = []
+        self.Firma = []
+        self.id = []
+
+        mongodata = StephansMongoFunctions.loadmongotojson("test", "Kunden1")
+        #print(mongodata)
+        #d = json.(mongodata)
+        for i, entry in enumerate(mongodata):
+            # Append to the list of data...
+            # print(entry['txtKontaktperson'])
+            self.data.append(entry['txtKontaktperson'])
+            self.Firma.append(entry['txtFirmenname'])
+            self.id.append(entry['IDKundennummer'])
+        return self.id, self.data, self.Firma
 
 
 if __name__ == '__main__':
