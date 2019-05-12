@@ -574,21 +574,21 @@ class MyTableWidget(QtGui.QWidget):
         such_text = self.test_search.text()
         # print("such =", such_person)
         print(such_text)
-        items = self.tableWidget.findItems(such_text,  QtCore.Qt.MatchRegExp)
+        items = self.tableWidget.findItems(such_text,  QtCore.Qt.MatchStartsWith)
+        print(1)
 
-        for row in range(self.tableWidget.rowCount()):
-                item = self.tableWidget.item(row, 0)
-                if item not in items:
-                    self.tableWidget.removeRow(row)
-
-
+        # for row in range(self.tableWidget.rowCount()):
+        #         item = self.tableWidget.item(row, 0)
+        #         if item not in items:
+        #             self.tableWidget.removeRow(row)
 
         #brush = QtGui.QBrush(QtGui.QColor("green"))
         #brush.setStyle(QtCore.Qt.SolidPattern)
-        # for i, item in enumerate(items):
-        #
-        #     index = self.tableWidget.indexFromItem(item)
-        #     print(index)
+        for i, item in enumerate(items):
+
+            index = self.tableWidget.indexFromItem(item)
+
+            print()
 
             #item.setForeground(brush)
         # for i in range(170):
